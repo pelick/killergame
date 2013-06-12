@@ -88,7 +88,6 @@ $(function() {
 
 	// playing with different origins and ranges
 	$('#nav-fan5').on('click', function(event) {
-
 		baraja.fan({
 			speed : 500,
 			easing : 'ease-out',

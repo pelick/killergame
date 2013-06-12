@@ -142,8 +142,14 @@
 
 			$items.each( function( i ) {
 				$( this ).css( 'z-index', arr[i]);
-
+				var old = $(this).context.innerHTML;
+				if (old.indexOf("<p>") != -1) {
+					var index = old.indexOf("<p>");
+					old = old.substring(0, index);
+				} 
+				$(this).context.innerHTML = old + "<p>" + (arr[i]+1-self.itemZIndexMin) + "号位</p>";
 			} );
+
 		},
 		_updateStack : function( $el, dir ) {
 
