@@ -1,13 +1,3 @@
-/**
- * jquery.baraja.js v1.0.0
- * http://www.codrops.com
- *
- * Licensed under the MIT license.
- * http://www.opensource.org/licenses/mit-license.php
- * 
- * Copyright 2012, Codrops
- * http://www.codrops.com
- */
 ;( function( $, window, undefined ) {
 	
 	'use strict';
@@ -140,6 +130,21 @@
 			} );
 
 		},
+		_randomStack : function( $items ) {
+			var self = this;
+			$items = $items || this.$items;
+			// random the array
+			var arr = [];
+			for (var j = self.itemZIndexMin; j < self.itemZIndexMin + self.itemsCount; j ++) {
+				arr[j] = j;
+			}
+			arr.sort(function(){ return 0.5 - Math.random() })
+
+			$items.each( function( i ) {
+				$( this ).css( 'z-index', arr[i]);
+
+			} );
+		},
 		_updateStack : function( $el, dir ) {
 
 			var currZIndex = Number( $el.css( 'z-index' ) ),
@@ -184,14 +189,14 @@
 
 			}
 
-			// this.$el.on( 'click.baraja', 'li', function() {
-				// if( !self.isAnimating ) {
-// 
-					// self._move2front( $( this ) );
-// 
-				// }
-// 
-			// } );
+			this.$el.on( 'click.baraja', 'li', function() {
+				//if( !self.isAnimating ) {
+
+					//self._move2front( $( this ) );
+
+				//}
+				$(this).context.innerHTML = "<img src='img/12.jpg' alt='image12'><h4>死人</h4>";
+			} );
 
 		},
 		_resetTransition : function( $el ) {
@@ -485,7 +490,7 @@
 			var self = this, 
 				newElemsCount = $elems.length, cnt = 0;
 
-			$elems.css( 'opacity', 0 ).appendTo( this.$el );
+			$elems.css( 'opacity', 1 ).appendTo( this.$el );
 
 			// reset
 			this.$items = this.$el.children( 'li' );
@@ -590,6 +595,14 @@
 
 			this._dispatch( this._add, $elems );
 
+		},
+		randomStack : function ( $elems ) {
+
+			this._dispatch( this._randomStack, $elems );
+
+		},
+		move2front : function ( $elem ) {
+			this._dispatch( this._move2front, $elem );
 		}
 
 	};
